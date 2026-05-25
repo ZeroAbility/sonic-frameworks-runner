@@ -53,12 +53,20 @@ ecm_generate_export_header(KF6Runner
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
 )
 
-target_include_directories(KF6Runner INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KRunner>")
+target_include_directories(KF6Runner 
+	                      INTERFACE
+			         "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KRunner>"
+			      PUBLIC
+			         ${KDE_INSTALL_INCLUDEDIR}/KF6/KCoreAddons	
+			      PRIVATE
+				 ${KDE_INSTALL_INCLUDEDIR}/KF6/KWindowSystem
+)
 
 target_link_libraries(KF6Runner
     PUBLIC
         Qt6::Core
-        KF6::CoreAddons # KPluginFactory
+	#KF6::CoreAddons # KPluginFactory
+	KF6CoreAddons
         KF6::ConfigCore
     PRIVATE
         Qt6::DBus
@@ -66,7 +74,8 @@ target_link_libraries(KF6Runner
         KF6::ConfigCore
         KF6::I18n
         KF6::ItemModels
-        KF6::WindowSystem
+	#KF6::WindowSystem
+	KF6WindowSystem
 )
 ecm_generate_headers(KRunner_CamelCase_HEADERS
   HEADER_NAMES

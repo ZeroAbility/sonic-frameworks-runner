@@ -36,7 +36,7 @@ set(krunner_version_header "${CMAKE_CURRENT_BINARY_DIR}/src/krunner_version.h")
 ecm_setup_version(PROJECT
     VARIABLE_PREFIX KRUNNER
     VERSION_HEADER "${krunner_version_header}"
-    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6RunnerConfigVersion.cmake"
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/SonicFrameworksRunnerConfigVersion.cmake"
     SOVERSION 6
 )
 
@@ -51,11 +51,12 @@ ecm_set_disabled_deprecation_versions(
 )
 
 find_package(KF6Config ${KF_DEP_VERSION} REQUIRED)
-find_package(KF6CoreAddons ${KF_DEP_VERSION} REQUIRED)
+#find_package(KF6CoreAddons ${KF_DEP_VERSION} REQUIRED)
+find_package(SonicFrameworksCoreAddons ${KF_DEP_VERSION} REQUIRED)
 find_package(KF6I18n ${KF_DEP_VERSION} REQUIRED)
 find_package(KF6ItemModels ${KF_DEP_VERSION})
-find_package(KF6WindowSystem ${KF_DEP_VERSION} REQUIRED)
-
+#find_package(KF6WindowSystem ${KF_DEP_VERSION} REQUIRED)
+find_package(SonicFrameworksWindowSystem ${KF_DEP_VERSION} REQUIRED)
 # Subdirectories
 add_subdirectory(src)
 if (BUILD_TESTING)
@@ -64,24 +65,24 @@ endif()
 add_subdirectory(templates)
 
 # Create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6Runner")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/SonicFrameworksRunner")
 
 configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/KF6RunnerConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/KF6RunnerConfig.cmake"
+	"${CMAKE_CURRENT_SOURCE_DIR}/SonicFrameworksRunnerConfig.cmake.in"
+	"${CMAKE_CURRENT_BINARY_DIR}/SonicFrameworksRunnerConfig.cmake"
     INSTALL_DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
 )
 
 install(FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/KF6RunnerConfig.cmake"
-            "${CMAKE_CURRENT_BINARY_DIR}/KF6RunnerConfigVersion.cmake"
-            "${CMAKE_CURRENT_SOURCE_DIR}/KF6KRunnerMacros.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/SonicFrameworksRunnerConfig.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/SonicFrameworksRunnerConfigVersion.cmake"
+	"${CMAKE_CURRENT_SOURCE_DIR}/SonicFrameworksRunnerMacros.cmake"
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel)
 
 install(EXPORT KF6RunnerTargets
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        FILE KF6RunnerTargets.cmake
+	FILE SonicFrameworksRunnerTargets.cmake
         NAMESPACE KF6::)
 
 install(FILES "${krunner_version_header}"
